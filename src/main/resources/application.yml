@@ -1,0 +1,23 @@
+server:
+  port: 12002
+spring:
+  application:
+    name: mybatis-plus-dynamic-data-source
+  datasource:
+    dynamic:
+      master:
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/master?characterEncoding=utf8&useSSL=false
+      slave:
+        one:
+          username: root
+          password: root
+          driverclassname: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/slave?characterEncoding=utf8&useSSL=false
+        two:
+          username: root
+          password: root
+          driverclassname: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/slave2?characterEncoding=utf8&useSSL=false
