@@ -5,19 +5,74 @@ spring:
     name: mybatis-plus-dynamic-data-source
   datasource:
     dynamic:
-      master:
-        username: root
-        password: root
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/master?characterEncoding=utf8&useSSL=false
-      slave:
-        one:
+      primary: master
+      datasource:
+        master: # 默认为主库
           username: root
           password: root
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/master?characterEncoding=utf8&useSSL=false
+#        slave:    如果不用 spel 表达式  可以用 master + slave 这种方式定义
+#          one:
+#            username: root
+#            password: root
+#            driverclassname: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://127.0.0.1:3306/slave?characterEncoding=utf8&useSSL=false
+#          two:
+#            username: root
+#            password: root
+#            driverclassname: com.mysql.jdbc.Driver
+#            url: jdbc:mysql://127.0.0.1:3306/slave2?characterEncoding=utf8&useSSL=false
+
+
+
+        #=======================多租户动态数据源==========================
+        db_tenant1_1: #租户 1 ==>对应 1 分组下 1 数据库名
+          username: ${db.tenant.group.one.1.username}
+          password: ${db.tenant.group.one.1.password}
           driverclassname: com.mysql.jdbc.Driver
-          url: jdbc:mysql://127.0.0.1:3306/slave?characterEncoding=utf8&useSSL=false
-        two:
+          url: jdbc:mysql://${db.tenant.group.one.1.host}:${db.tenant.group.one.1.port}/${db.tenant.group.one.1.name}?characterEncoding=utf8&useSSL=false
+        db_tenant1_2: #租户 2 ==>对应 1 分组下 2 数据库名
+          username: ${db.tenant.group.one.2.username}
+          password: ${db.tenant.group.one.2.password}
+          driverclassname: com.mysql.jdbc.Driver
+          url: jdbc:mysql://${db.tenant.group.one.2.host}:${db.tenant.group.one.2.port}/${db.tenant.group.one.2.name}characterEncoding=utf8&useSSL=false
+        db_tenant1_3: #租户 3 ==>对应 1 分组下 3 数据库名
+          username: ${db.tenant.group.one.3.username}
+          password: ${db.tenant.group.one.3.password}
+          driverclassname: com.mysql.jdbc.Driver
+          url: jdbc:mysql://${db.tenant.group.one.3.host}:${db.tenant.group.one.3.port}/${db.tenant.group.one.3.name}?characterEncoding=utf8&useSSL=false
+        db_tenant2_1: #租户 4 ==>对应 2 分组下 1 数据库名
+          username: ${db.tenant.group.two.1.username}
+          password: ${db.tenant.group.two.1.password}
+          driverclassname: com.mysql.jdbc.Driver
+          url: jdbc:mysql://${db.tenant.group.two.1.host}:${db.tenant.group.two.1.port}/${db.tenant.group.two.1.name}?characterEncoding=utf8&useSSL=false
+
+db:
+  tenant:
+    group:
+      one:
+        1:
+          name: db_tenant1_1
+          host: 127.0.0.1
+          port: 3306
           username: root
           password: root
-          driverclassname: com.mysql.jdbc.Driver
-          url: jdbc:mysql://127.0.0.1:3306/slave2?characterEncoding=utf8&useSSL=false
+
+        2:
+          name: db_tenant1_2
+          port: 3306
+          username: root
+          password: root
+        3:
+          name: db_tenant1_3
+          port: 3306
+          username: root
+          password: root
+      two:
+        1:
+          name: db_tenant2_1
+          host: 127.0.0.1
+          port: 3306
+          username: root
+          password: root

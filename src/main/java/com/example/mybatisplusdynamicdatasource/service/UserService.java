@@ -13,6 +13,7 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     public void saveBySlave_1() {
         //模拟数据
         User user = new User();
@@ -24,9 +25,9 @@ public class UserService {
 //        jdbcTemplate.execute("insert  tb_user (user_name,pass_word) values ('testSlaver1','123456')");
 
     }
+
     public void saveBySlave_2() {
 
-        //模拟数据
         //模拟数据
         User user = new User();
         user.setUser_name("testSlaver2");
@@ -37,12 +38,29 @@ public class UserService {
 
     public void saveByMater() {
         //模拟数据
-        //模拟数据
         User user = new User();
         user.setUser_name("testMater");
         user.setPass_word("123456");
         userRepository.save(user);
 //        jdbcTemplate.execute("insert  tb_user (user_name,pass_word) values ('testMaster','123456')");
 
+    }
+
+    public void saveByHeader() {
+        //模拟数据
+        User user = new User();
+        user.setUser_name("testHeader");
+        user.setPass_word("123456");
+        userRepository.save(user);
+//        jdbcTemplate.execute("insert  tb_user (user_name,pass_word) values ('testMaster','123456')");
+    }
+
+    public void saveBySession() {
+        //模拟数据
+        User user = new User();
+        user.setUser_name("testHeader");
+        user.setPass_word("123456");
+        userRepository.save(user);
+        //        jdbcTemplate.execute("insert  tb_user (user_name,pass_word) values ('testMaster','123456')");
     }
 }
