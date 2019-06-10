@@ -24,7 +24,7 @@ public class Swagger2 {
 		ParameterBuilder tokenPar = new ParameterBuilder();
 		List<Parameter> pars = new ArrayList<>();
 		//模拟用户访问携带的需要切换数据库的头信息
-		tokenPar.name("tenantName").description("验证头").defaultValue("master").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+		tokenPar.name("tenantName").description("动态数据源名称").defaultValue("master").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
 		pars.add(tokenPar.build());
 
 		return new Docket(DocumentationType.SWAGGER_2)
